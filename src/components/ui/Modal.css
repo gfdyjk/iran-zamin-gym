@@ -1,0 +1,119 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vw, 40px);
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 6, 5, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: modal-fade 0.35s var(--ease) both;
+}
+
+.modal__panel {
+  position: relative;
+  width: min(660px, 100%);
+  max-height: min(88vh, 940px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(24px, 3.4vw, 44px);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  background: linear-gradient(155deg, #131814 0%, #0a0d0b 62%);
+  box-shadow: 0 50px 130px -50px rgba(0, 0, 0, 0.95);
+  animation: modal-rise 0.45s var(--ease-out) both;
+}
+
+.modal--lg .modal__panel {
+  width: min(920px, 100%);
+}
+
+.modal--wide .modal__panel {
+  width: min(1120px, 100%);
+  padding: 0;
+  background: #060807;
+  overflow: hidden;
+}
+
+.modal--media .modal__panel {
+  width: min(1080px, 100%);
+  padding: 0;
+  background: #050706;
+  overflow: hidden;
+}
+
+.modal__close {
+  position: absolute;
+  top: 14px;
+  inset-inline-start: 14px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: rgba(8, 10, 9, 0.72);
+  color: var(--white);
+  backdrop-filter: blur(8px);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease),
+    background-color 0.3s var(--ease);
+}
+
+.modal__close:hover {
+  color: var(--green);
+  border-color: var(--green-line);
+  background: var(--green-soft);
+  transform: rotate(90deg);
+}
+
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .modal {
+    padding: 0;
+    align-items: end;
+  }
+
+  .modal__panel {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    animation-name: modal-sheet;
+  }
+}
+
+@keyframes modal-sheet {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

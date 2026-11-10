@@ -1,0 +1,54 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--green);
+}
+
+.logo__mark svg {
+  width: 38px;
+  height: 38px;
+  transition: transform 0.6s var(--ease);
+}
+
+.logo:hover .logo__mark svg {
+  transform: rotate(-4deg) scale(1.04);
+}
+
+.logo__type {
+  display: grid;
+  gap: 1px;
+  line-height: 1.1;
+}
+
+.logo__fa {
+  font-size: 1.06rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+
+.logo__lat {
+  font-family: var(--font-latin);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  color: var(--muted);
+  direction: ltr;
+  text-align: right;
+}
+
+.logo--compact .logo__mark svg {
+  width: 32px;
+  height: 32px;
+}
+
+.logo--compact .logo__fa {
+  font-size: 0.98rem;
+}
+
+@media (max-width: 480px) {
+  .logo__lat {
+    letter-spacing: 0.24em;
+  }
+}
