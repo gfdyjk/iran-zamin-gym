@@ -1,0 +1,55 @@
+/* ============================================================
+   Design tokens — Cyber-Minimalism / Neural-Tech Architecture
+   Single source of truth for color, type, spacing and motion.
+   ============================================================ */
+:root {
+  /* Surfaces */
+  --void: #020b10;
+  --void-2: #04121a;
+  --sub: #07171c;
+  --sub-2: #0a2129;
+  --glass: rgba(9, 35, 42, 0.65);
+  --glass-strong: rgba(7, 25, 31, 0.88);
+
+  /* Accents */
+  --cyan: #00f0e5;
+  --teal: #00bfcb;
+  --cyan-soft: rgba(0, 240, 229, 0.12);
+  --cyan-line: rgba(0, 240, 229, 0.16);
+  --cyan-line-strong: rgba(0, 240, 229, 0.34);
+
+  /* Ink */
+  --ink: #f4ffff;
+  --muted: #a8b9be;
+  --dim: #6f8a91;
+
+  /* Hairlines */
+  --hair: rgba(244, 255, 255, 0.07);
+  --hair-strong: rgba(244, 255, 255, 0.14);
+
+  /* Type */
+  --font-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  /* Layout */
+  --shell: 1240px;
+  --gutter: clamp(18px, 4.2vw, 48px);
+  --section-y: clamp(72px, 9vw, 132px);
+  --header-h: 72px;
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+
+  /* Elevation & glow */
+  --shadow-card: 0 24px 60px -32px rgba(0, 0, 0, 0.9), 0 2px 0 rgba(244, 255, 255, 0.03) inset;
+  --shadow-glow: 0 0 0 1px var(--cyan-line-strong), 0 30px 70px -40px rgba(0, 240, 229, 0.55);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 320ms;
+
+  color-scheme: dark;
+}

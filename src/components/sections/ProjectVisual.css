@@ -1,0 +1,596 @@
+/* ============================================================
+   Project preview — stylised UI mockups, pure CSS
+   ============================================================ */
+.pv {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10.4;
+  border-radius: 14px;
+  border: 1px solid rgba(244, 255, 255, 0.09);
+  background: linear-gradient(180deg, #071c24 0%, #030f15 100%);
+  box-shadow: 0 26px 50px -34px rgba(0, 0, 0, 0.95);
+  overflow: hidden;
+  transition: transform 700ms var(--ease-out), box-shadow 700ms var(--ease);
+}
+
+.project:hover .pv {
+  transform: translate3d(0, -4px, 0) scale(1.014);
+  box-shadow: 0 34px 60px -34px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(0, 240, 229, 0.14);
+}
+
+.pv__bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-bottom: 1px solid rgba(244, 255, 255, 0.06);
+  background: rgba(244, 255, 255, 0.02);
+}
+
+.pv__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(244, 255, 255, 0.18);
+}
+
+.pv__url {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: rgba(244, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+}
+
+.pv__screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: calc(100% - 26px);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.pv__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(118deg, rgba(244, 255, 255, 0.07) 0%, transparent 34%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ---------- shared atoms ---------- */
+.pv__topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pv__brand {
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  background: var(--acc);
+  box-shadow: 0 0 14px -2px var(--acc);
+}
+
+.pv__brand--sm {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.pv__navline {
+  height: 3px;
+  width: 24px;
+  border-radius: 2px;
+  background: rgba(244, 255, 255, 0.16);
+}
+
+.pv__navline--short {
+  width: 14px;
+}
+
+.pv__navline--active {
+  background: var(--acc);
+}
+
+.pv__btn {
+  width: 34px;
+  height: 11px;
+  margin-left: auto;
+  border-radius: 99px;
+  background: var(--acc);
+  opacity: 0.85;
+}
+
+.pv__h {
+  display: block;
+  height: 7px;
+  width: 58%;
+  border-radius: 3px;
+  background: rgba(244, 255, 255, 0.72);
+}
+
+.pv__h--xl {
+  height: 12px;
+  width: 86%;
+  background: rgba(244, 255, 255, 0.86);
+}
+
+.pv__h--short {
+  width: 62%;
+}
+
+.pv__p {
+  display: block;
+  height: 4px;
+  width: 92%;
+  border-radius: 2px;
+  background: rgba(244, 255, 255, 0.16);
+}
+
+.pv__p--short {
+  width: 68%;
+}
+
+.pv__cta {
+  display: block;
+  width: 52px;
+  height: 15px;
+  margin-top: 4px;
+  border-radius: 99px;
+  background: var(--acc);
+  box-shadow: 0 0 18px -4px var(--acc);
+}
+
+/* ---------- gym ---------- */
+.pv--gym {
+  --acc: #39e75f;
+}
+
+.pv__gym {
+  display: grid;
+  grid-template-columns: 1fr 0.82fr;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.pv__gym-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
+
+.pv__eyebrow {
+  display: block;
+  width: 34px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--acc);
+}
+
+.pv__gym-figure {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    radial-gradient(85% 60% at 72% 12%, rgba(57, 231, 95, 0.34), transparent 66%),
+    linear-gradient(154deg, #0e3520 0%, #071c11 58%, #04100a 100%);
+  border: 1px solid rgba(57, 231, 95, 0.2);
+}
+
+/* Soft light streak reads as a lit subject against a dark studio floor. */
+.pv__figure-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(102deg, transparent 34%, rgba(57, 231, 95, 0.22) 52%, transparent 66%),
+    radial-gradient(60% 34% at 50% 100%, rgba(57, 231, 95, 0.18), transparent 70%);
+}
+
+.pv__gym-figure::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  background-image:
+    linear-gradient(to right, rgba(57, 231, 95, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(57, 231, 95, 0.12) 1px, transparent 1px);
+  background-size: 14px 14px;
+  mask-image: linear-gradient(to top, #000, transparent);
+}
+
+.pv__stat {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: var(--font-mono);
+}
+
+.pv__stat b {
+  font-size: 13px;
+  line-height: 1;
+  color: #eafff0;
+}
+
+.pv__stat i {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(57, 231, 95, 0.7);
+}
+
+.pv__strip {
+  display: flex;
+  gap: 6px;
+  height: 20px;
+}
+
+.pv__strip span {
+  flex: 1;
+  border-radius: 5px;
+  background: rgba(244, 255, 255, 0.05);
+  border: 1px solid rgba(244, 255, 255, 0.05);
+}
+
+/* ---------- app ---------- */
+.pv--app {
+  --acc: #00f0e5;
+}
+
+.pv__app {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 10px;
+  height: 100%;
+  min-height: 0;
+}
+
+.pv__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 9px 7px;
+  border-radius: 9px;
+  border: 1px solid rgba(244, 255, 255, 0.06);
+  background: rgba(244, 255, 255, 0.03);
+}
+
+.pv__app-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pv__app-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pv__app-head .pv__h {
+  width: 46%;
+}
+
+.pv__ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: conic-gradient(var(--acc) 0 72%, rgba(244, 255, 255, 0.08) 72% 100%);
+  flex: none;
+}
+
+.pv__ring::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #04141a;
+}
+
+.pv__ring b {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.pv__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pv__task {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 7px;
+  border-radius: 6px;
+  background: rgba(244, 255, 255, 0.045);
+}
+
+.pv__task i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 255, 255, 0.25);
+  flex: none;
+}
+
+.pv__task.is-done i {
+  background: var(--acc);
+  border-color: var(--acc);
+  box-shadow: 0 0 10px -2px var(--acc);
+}
+
+.pv__task em {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(244, 255, 255, 0.4);
+}
+
+.pv__task.is-done em {
+  background: rgba(244, 255, 255, 0.2);
+}
+
+.pv__task u {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(244, 255, 255, 0.14);
+}
+
+.pv__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 34px;
+  margin-top: auto;
+}
+
+.pv__bars span {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, var(--acc), rgba(0, 240, 229, 0.05));
+  opacity: 0.65;
+}
+
+/* ---------- estate ---------- */
+.pv--estate {
+  --acc: #8fa9ff;
+}
+
+.pv__estate {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+  min-height: 0;
+}
+
+.pv__filter {
+  display: block;
+  width: 64%;
+  height: 12px;
+  border-radius: 99px;
+  border: 1px solid rgba(244, 255, 255, 0.08);
+  background: rgba(244, 255, 255, 0.04);
+}
+
+.pv__listings {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  flex: 1;
+  min-height: 0;
+}
+
+.pv__listing {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(244, 255, 255, 0.06);
+  background: rgba(244, 255, 255, 0.03);
+}
+
+.pv__listing i {
+  flex: 1;
+  background:
+    radial-gradient(90% 90% at 70% 20%, rgba(143, 169, 255, 0.5), transparent 70%),
+    linear-gradient(160deg, #14203d, #070d1b);
+}
+
+.pv__listing em {
+  height: 4px;
+  margin: 6px 6px 4px;
+  border-radius: 2px;
+  background: rgba(244, 255, 255, 0.4);
+}
+
+.pv__listing u {
+  height: 3px;
+  margin: 0 6px 7px;
+  border-radius: 2px;
+  background: rgba(244, 255, 255, 0.14);
+}
+
+/* ---------- ai ---------- */
+.pv--ai {
+  --acc: #b18cff;
+}
+
+.pv__ai {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 0.92fr;
+  gap: 10px;
+  height: 100%;
+  min-height: 0;
+}
+
+.pv__nodes {
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid rgba(244, 255, 255, 0.05);
+  background: radial-gradient(circle at 52% 48%, rgba(177, 140, 255, 0.14), transparent 68%);
+  overflow: hidden;
+}
+
+.pv__node {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--acc);
+  box-shadow: 0 0 12px var(--acc);
+}
+
+.pv__node--0 {
+  top: 18%;
+  left: 22%;
+}
+.pv__node--1 {
+  top: 48%;
+  left: 12%;
+}
+.pv__node--2 {
+  top: 76%;
+  left: 30%;
+}
+.pv__node--3 {
+  top: 26%;
+  left: 68%;
+}
+.pv__node--4 {
+  top: 58%;
+  left: 80%;
+}
+.pv__node--5 {
+  top: 84%;
+  left: 60%;
+}
+
+.pv__link {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--acc), transparent);
+  opacity: 0.45;
+  transform-origin: left center;
+}
+
+.pv__link--1 {
+  top: 22%;
+  left: 24%;
+  width: 46%;
+  transform: rotate(9deg);
+}
+.pv__link--2 {
+  top: 50%;
+  left: 14%;
+  width: 56%;
+  transform: rotate(6deg);
+}
+.pv__link--3 {
+  top: 40%;
+  left: 40%;
+  width: 40%;
+  transform: rotate(52deg);
+}
+
+.pv__chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.pv__bubble {
+  display: block;
+  width: 88%;
+  height: 15px;
+  border-radius: 8px;
+  background: rgba(244, 255, 255, 0.06);
+}
+
+.pv__bubble--out {
+  align-self: flex-end;
+  width: 72%;
+  background: var(--acc);
+  opacity: 0.32;
+}
+
+.pv__bubble--short {
+  width: 56%;
+}
+
+.pv__prompt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 6px 7px;
+  border-radius: 8px;
+  border: 1px solid rgba(244, 255, 255, 0.09);
+  background: rgba(244, 255, 255, 0.03);
+}
+
+.pv__prompt i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acc);
+  flex: none;
+}
+
+.pv__prompt b {
+  height: 3px;
+  flex: 1;
+  border-radius: 2px;
+  background: rgba(244, 255, 255, 0.2);
+}
+
+@media (max-width: 480px) {
+  .pv__screen {
+    padding: 9px;
+    gap: 6px;
+  }
+
+  .pv__bar {
+    height: 22px;
+  }
+
+  .pv__app {
+    grid-template-columns: 42px 1fr;
+  }
+
+  .pv__h--xl {
+    height: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project:hover .pv {
+    transform: none;
+  }
+}

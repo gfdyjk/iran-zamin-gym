@@ -1,154 +1,124 @@
 import { useEffect, useState } from 'react';
-import { site } from '../../data/site';
-import { Logo } from '../ui/Logo';
-import { IconArrowLeft, IconInstagram, IconPhone, IconTelegram, IconWhatsapp } from '../ui/Icons';
+import { nav, site } from '../../data/site';
+import { useActiveSection, useBodyLock, useScrolled } from '../../hooks/useUiState';
+import { Icon } from '../ui/Icon';
+import { LogoMark } from '../ui/Logo';
 import './Header.css';
 
-const socialIcons = {
-  instagram: IconInstagram,
-  telegram: IconTelegram,
-  whatsapp: IconWhatsapp,
-};
+const sectionIds = nav.map((item) => item.id);
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeHref, setActiveHref] = useState<string>('#home');
+  const [open, setOpen] = useState(false);
+  const active = useActiveSection(sectionIds);
+  const scrolled = useScrolled(30);
+
+  useBodyLock(open);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  /* Lock the page behind the full-screen mobile menu. */
-  useEffect(() => {
-    document.body.classList.toggle('is-locked', menuOpen);
-    return () => document.body.classList.remove('is-locked');
-  }, [menuOpen]);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false);
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
     };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [menuOpen]);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
 
-  /* Highlight the nav item of the section currently in view. */
   useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') return;
-    const sections = site.nav
-      .map((item) => document.querySelector<HTMLElement>(item.href))
-      .filter((element): element is HTMLElement => Boolean(element));
-    if (sections.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveHref(`#${entry.target.id}`);
-        });
-      },
-      { rootMargin: '-45% 0px -50% 0px', threshold: 0 },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    const onResize = () => {
+      if (window.innerWidth > 980) setOpen(false);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
-
-  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <>
-      <header className={`header${scrolled ? ' is-scrolled' : ''}${menuOpen ? ' is-menu-open' : ''}`}>
-        <div className="header__inner container">
-          <a className="header__brand" href="#home" aria-label={`${site.brand.full} — صفحه اصلی`}>
-            <Logo persian={site.brand.persian} latin={site.brand.latin} />
-          </a>
+    <header className={`nav${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
+      <div className="nav__inner shell">
+        <a className="brand" href="#home" aria-label={`${site.name} — back to top`}>
+          <LogoMark className="brand__mark" />
+          <span className="brand__text">
+            <span className="brand__name">{site.name}</span>
+            <span className="brand__tag">{site.tagline}</span>
+          </span>
+        </a>
 
-          <nav className="header__nav" aria-label="منوی اصلی">
-            <ul>
-              {site.nav.map((item) => (
-                <li key={item.href}>
-                  <a href={item.href} className={activeHref === item.href ? 'is-active' : undefined}>
+        <nav className="nav__links" aria-label="Primary">
+          <ul>
+            {nav.map((item) => {
+              const isActive = active === item.id;
+              return (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className={isActive ? 'is-active' : undefined}
+                    aria-current={isActive ? 'true' : undefined}
+                  >
+                    <span className="nav__index" aria-hidden="true">
+                      {item.index}
+                    </span>
                     {item.label}
                   </a>
                 </li>
-              ))}
-            </ul>
-          </nav>
+              );
+            })}
+          </ul>
+        </nav>
 
-          <div className="header__actions">
-            <a className="btn btn--ghost header__login" href="#join">
-              ورود / عضویت
-              <IconArrowLeft size={16} />
-            </a>
-            <button
-              type="button"
-              className="header__burger"
-              aria-label={menuOpen ? 'بستن منو' : 'باز کردن منو'}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              onClick={() => setMenuOpen((open) => !open)}
-            >
-              <span />
-              <span />
-            </button>
-          </div>
+        <div className="nav__actions">
+          <a className="btn btn--primary btn--sm nav__cta" href="#contact">
+            Let&apos;s Talk
+            <Icon name="arrow" />
+          </a>
+          <button
+            type="button"
+            className="nav__burger"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
-      </header>
+      </div>
 
-      <div
-        id="mobile-menu"
-        className={`mobile-menu${menuOpen ? ' is-open' : ''}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="منوی موبایل"
-        aria-hidden={!menuOpen}
-      >
-        <nav className="mobile-menu__nav container" aria-label="منوی موبایل">
-          <ul className="mobile-menu__list">
-            {site.nav.map((item, index) => (
-              <li key={item.href}>
+      <div className="nav__sheet" id="mobile-menu">
+        <nav aria-label="Mobile" className="nav__sheet-nav">
+          <ul>
+            {nav.map((item, index) => (
+              <li key={item.id} style={{ transitionDelay: open ? `${80 + index * 45}ms` : '0ms' }}>
                 <a
-                  href={item.href}
-                  onClick={closeMenu}
-                  tabIndex={menuOpen ? 0 : -1}
-                  style={{ '--i': index } as React.CSSProperties}
+                  href={`#${item.id}`}
+                  className={active === item.id ? 'is-active' : undefined}
+                  tabIndex={open ? 0 : -1}
+                  onClick={() => setOpen(false)}
                 >
-                  <span className="mobile-menu__index">{String(index + 1).padStart(2, '0')}</span>
-                  {item.label}
+                  <span className="nav__sheet-index">{item.index}</span>
+                  <span className="nav__sheet-label">{item.label}</span>
+                  <Icon name="arrow" />
                 </a>
               </li>
             ))}
           </ul>
-
-          <div className="mobile-menu__foot">
-            <a className="btn btn--primary" href="#join" onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
-              دریافت مشاورهٔ رایگان
-              <IconArrowLeft size={18} />
-            </a>
-            <a className="mobile-menu__phone" href={site.contact.phoneHref} tabIndex={menuOpen ? 0 : -1}>
-              <IconPhone size={17} />
-              <span>{site.contact.phone}</span>
-            </a>
-            <ul className="mobile-menu__socials">
-              {site.contact.socials.map((social) => {
-                const Icon = socialIcons[social.icon];
-                return (
-                  <li key={social.label}>
-                    <a href={social.href} aria-label={social.label} tabIndex={menuOpen ? 0 : -1}>
-                      <Icon size={18} />
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
         </nav>
+        <div className="nav__sheet-foot">
+          <p className="nav__sheet-status">
+            <span className="dot" aria-hidden="true" />
+            Available for new projects
+          </p>
+          <a
+            className="btn btn--primary"
+            href="#contact"
+            tabIndex={open ? 0 : -1}
+            onClick={() => setOpen(false)}
+          >
+            Let&apos;s Talk
+            <Icon name="arrow" />
+          </a>
+        </div>
       </div>
-    </>
+    </header>
   );
 }

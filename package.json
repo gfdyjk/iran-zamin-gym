@@ -1,9 +1,9 @@
 {
-  "name": "iran-zamin-gym",
+  "name": "mahdi-babaei-portfolio",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "وب‌سایت رسمی باشگاه بدنسازی ایران زمین",
+  "description": "Premium portfolio for Mahdi Babaei — Software Engineer, Digital Experiences & Technology",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",

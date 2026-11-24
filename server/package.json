@@ -1,9 +1,9 @@
 {
-  "name": "iran-zamin-api",
+  "name": "mahdi-babaei-portfolio-api",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "API دریافت درخواست‌های مشاورهٔ باشگاه ایران زمین",
+  "description": "Contact API for the Mahdi Babaei portfolio",
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js"

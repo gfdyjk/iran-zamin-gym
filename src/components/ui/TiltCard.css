@@ -1,0 +1,38 @@
+/* 3D tilt surface. Pointer variables are written by useTilt (no re-render). */
+.tilt {
+  transform-style: preserve-3d;
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+    translate3d(0, var(--lift, 0px), 0);
+  transition:
+    transform 420ms var(--ease-out),
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tilt:hover,
+  .tilt:focus-within {
+    --lift: -6px;
+    transition:
+      transform 160ms var(--ease-out),
+      border-color var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease);
+    will-change: transform;
+  }
+}
+
+/* Content sits on its own plane so it lifts with the card. */
+.tilt > * {
+  transform: translateZ(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt,
+  .tilt:hover {
+    transform: none;
+  }
+
+  .tilt > * {
+    transform: none;
+  }
+}

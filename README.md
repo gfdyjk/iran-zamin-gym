@@ -1,95 +1,113 @@
-# باشگاه بدنسازی ایران زمین — وب‌سایت رسمی
+# Mahdi Babaei — Portfolio
 
-وب‌سایت تک‌صفحه‌ای، سینمایی و واکنش‌گرا برای باشگاه بدنسازی **ایران زمین** با مربیگری **محسن اصانلو**.
-طراحی کاملاً راست‌به‌چپ (RTL)، تم مشکی و سبز نئونی، انیمیشن‌های اسکرول و فرم مشاورهٔ واقعی.
+Premium, motion-driven portfolio for **Mahdi Babaei — Software Engineer**, built as a single-page
+experience: cinematic dark interface, layered 3D motion, glass surfaces and a real contact API.
 
-## استک فنی
+> Brand: **Mahdi Babaei — Digital Experiences & Technology**
 
-| بخش | فناوری |
+## Stack
+
+| Layer | Technology |
 | --- | --- |
-| رابط کاربری | React + TypeScript + Vite |
-| استایل | CSS اختصاصی با توکن‌های طراحی (بدون فریم‌ورک UI) |
-| انیمیشن | IntersectionObserver + CSS transitions، بدون کتابخانهٔ سنگین |
+| UI | React 18 + TypeScript + Vite |
+| Styling | Hand-written CSS with design tokens (`src/styles/tokens.css`), no UI framework |
+| Motion | CSS 3D transforms + `IntersectionObserver` + `requestAnimationFrame` — **no animation library** |
 | API | Node.js + Express |
-| ذخیره‌سازی | PostgreSQL (جدول `leads`) |
-| فونت | Vazirmatn و Space Grotesk — self-hosted (SIL OFL) |
+| Storage | PostgreSQL (`messages` table) |
+| Fonts | Space Grotesk + Inter — self-hosted (SIL OFL) |
 
-## ساختار پروژه
+No WebGL, no GSAP/Framer Motion bundle: every effect is CSS-composited, which keeps the JS payload at
+roughly React's own weight (~59 kB gzipped) and the first paint fast on mid-range phones.
+
+## Project structure
 
 ```
+index.html                  SEO metadata, Open Graph, JSON-LD (Person, ProfessionalService, WebSite)
 src/
-  App.tsx                  چیدمان صفحه و ترتیب بخش‌ها
-  data/site.ts             تمام محتوای سایت (متن، منو، برنامه‌ها، نظرات، تماس)
-  hooks/                   useInView، useCountUp، useParallax
-  lib/api.ts               ارسال فرم مشاوره به API
+  App.tsx                   Page composition and section order
+  data/site.ts              ALL content: nav, hero, overview, about, skills, projects, services, contact
+  hooks/
+    useInView.ts            Reveal-on-scroll observer
+    useTilt.ts              3D pointer tilt + hero pointer field (writes CSS variables, no re-renders)
+    useUiState.ts           Active section, scroll progress, local clock, body scroll lock
   components/
-    layout/                Header، Footer
-    sections/              Hero، Coach، Programs، Facilities، Join، VideoStory، Testimonials، Ticker
-    ui/                    Modal، Gallery، Logo، Icons، Reveal، SectionLabel
-  styles/                  توکن‌ها، ریست، فونت‌ها
-server/                    API دریافت درخواست مشاوره (Express + pg)
-public/                    تصاویر، فونت‌ها، فاوآیکون
+    layout/                 Header (sticky glass nav + mobile sheet), Footer (status bar)
+    sections/               Hero, Overview, About, Skills, Projects, ProjectModal, Services, Contact
+    ui/                     Icon set, LogoMark, Reveal, SectionHeading, TiltCard
+  lib/api.ts                Contact form client
+  styles/                   tokens.css, global.css, fonts.css
+server/                     Contact API (Express + pg)
+public/                     favicon, robots.txt, sitemap.xml, CV, fonts
 ```
 
-## ویرایش محتوا
+## Editing content
 
-همهٔ متن‌ها در یک فایل جمع شده‌اند: `src/data/site.ts`
+Everything the visitor reads lives in **`src/data/site.ts`**. Components never hardcode copy:
 
-- `brand`, `nav`, `hero` — هویت، منو و تیتر اصلی
-- `stats` — شاخص‌های آماری (فعلاً **اعداد نمونه**؛ در رابط کاربری هم با برچسب «دادهٔ نمونه» نمایش داده می‌شوند)
-- `coach` — معرفی و متن‌های مربی
-- `programs`, `facilities`, `video`, `testimonials`
-- `join`, `contact`, `footer` — فرم، راه‌های ارتباطی و فوتر
+- `site` — name, title, tagline, canonical URL, meta description
+- `nav` — menu items and their section ids
+- `hero` — badge, greeting, rotating roles, intro, CTAs, portrait
+- `overview` / `about` / `skills` / `services` — section copy, cards, tags
+- `projects` — add a project by appending an object to the array; the grid, card, and case-study
+  modal all render from it (no component changes needed)
+- `contact` — email, location, response time, form labels, socials (rendered when present)
+- `footer` — status line and credit
 
-## مواردی که باید با اطلاعات واقعی جایگزین شوند
+## Portrait
 
-1. **آمار** (`stats`) — تا زمان دریافت آمار واقعی، برچسب «دادهٔ نمونه» حفظ شود.
-2. **نظرات اعضا** (`testimonials`) — متن‌ها نمونه‌اند و بخش با برچسب «محتوای آزمایشی» مشخص شده است.
-3. **شمارهٔ تماس، نشانی و شبکه‌های اجتماعی** (`contact`) — مقادیر فعلی جای‌نگهدار هستند.
-4. **سوابق و مدارک مربی** — در مودال «دربارهٔ مربی» جای مشخصی برای آن رزرو شده و هیچ مدرکی جعل نشده است.
-5. **ویدیوی معرفی** — تا ارائهٔ فایل واقعی، مودال ویدیو یک پیش‌نمایش از تصاویر باشگاه پخش می‌کند و همین موضوع را هم اعلام می‌کند. برای ویدیوی واقعی:
-   فایل را در `public/video/` بگذارید و مسیر آن را در `site.video.src` تنظیم کنید (پلیر `<video>` با کنترل کامل به‌طور خودکار فعال می‌شود).
+The hero ships with an art-directed holographic bust so the page is complete without a photograph.
+To use a real photo:
 
-## تصاویر
+1. Add the file to `public/images/` (e.g. `portrait.webp`, ~900×1125, WebP/AVIF).
+2. Set `hero.portrait` in `src/data/site.ts` to `'/images/portrait.webp'`.
 
-تصاویر از Unsplash (مجوز Unsplash، قابل استفادهٔ تجاری) گرفته شده و در `public/images/` قرار دارند.
-برای انتشار نهایی، جایگزینی آن‌ها با عکس‌های واقعی باشگاه و مربی توصیه می‌شود — کافی است فایل‌ها با همین نام‌ها عوض شوند.
+The frame, rim lighting, scan line, HUD labels and 3D parallax all keep working with the photo.
 
-## فرم مشاوره و ذخیره‌سازی
+## CV
 
-فرم بخش «عضویت» واقعی است: `POST /api/leads` با اعتبارسنجی سمت سرور و ذخیره در PostgreSQL.
+`public/cv/mahdi-babaei-cv.pdf` is generated from the same content as the site. Replace the file to
+update the download — the "Download CV" button needs no change.
 
-- جدول: `leads (id, name, phone, goal, note, source, created_at)`
-- محدودیت ارسال: حداکثر ۸ درخواست در هر ۱۰ دقیقه از یک IP
-- خواندن درخواست‌ها: `GET /api/leads` با هدر `x-admin-token` برابر مقدار متغیر محیطی `ADMIN_TOKEN`
-  (اگر `ADMIN_TOKEN` تنظیم نشده باشد، این مسیر غیرفعال است)
+## Contact form
 
-خواندن مستقیم از دیتابیس در محیط توسعه:
+`POST /api/contact` validates on the server and stores the message in PostgreSQL:
+
+- `messages (id, name, email, message, source, created_at)` — created automatically on API start
+- Per-IP throttle: 6 submissions per 10 minutes
+- Read messages: `GET /api/messages` with header `x-admin-token: $ADMIN_TOKEN`
+  (the route is disabled when `ADMIN_TOKEN` is unset)
+
+The browser form validates inline (name, email, message length), shows a success panel on submit and
+surfaces server errors without losing the user's input.
+
+## SEO
+
+- Semantic HTML5, one `h1`, ordered `h2`/`h3` hierarchy, descriptive alt text
+- Unique title, meta description, canonical, Open Graph and Twitter Card metadata
+- `public/robots.txt` and `public/sitemap.xml`
+- JSON-LD graph for `Person`, `ProfessionalService` and `WebSite`
+
+Replace `https://mahdibabaei.com` in `index.html`, `public/robots.txt` and `public/sitemap.xml` with
+the production domain, and swap `public/og-image.png` for a branded social card.
+
+## Performance & accessibility
+
+- Single CSS bundle, no animation library, no WebGL, no blocking third-party scripts
+- Fonts self-hosted with `font-display: swap` and only the two Latin files preloaded
+- Animations use `transform`/`opacity` only; pointer handlers write CSS variables through `rAF`
+- `prefers-reduced-motion` disables tilt, parallax, scan and reveal animations
+- 44 px minimum hit areas, visible cyan focus rings, skip link, labelled form fields, focus-trapped
+  project modal, `aria-live` form status
+- No horizontal overflow from 320 px up; layout adapts (not shrinks) per breakpoint
+
+## Local development
 
 ```bash
-docker compose -f "$BASE44_CONFIG_ROOT/docker-compose.base44.yml" exec db psql -U iranzamin -d iranzamin -c "SELECT * FROM leads ORDER BY created_at DESC LIMIT 20;"
+npm install
+npm run dev            # http://localhost:3000
+
+cd server && npm install && npm start   # API on :8000 (needs PostgreSQL)
 ```
 
-## دسترس‌پذیری و کیفیت
-
-- ساختار معنایی HTML، `lang="fa"` و `dir="rtl"`، لینک «رفتن به محتوای اصلی»
-- فوکوس قابل‌مشاهده، مودال‌ها با تلهٔ فوکوس، بستن با `Esc` و قفل اسکرول
-- `prefers-reduced-motion` برای کاهش انیمیشن‌ها
-- تصاویر با `loading="lazy"` و ابعاد مشخص برای جلوگیری از Layout Shift
-- بدون اسکرول افقی در موبایل، تبلت و دسکتاپ
-
-## اجرا (محیط توسعه)
-
-```bash
-# در محیط Base44
-docker compose --project-name app --project-directory "$BASE44_PROJECT_ROOT" \
-  -f "$BASE44_CONFIG_ROOT/docker-compose.base44.yml" up -d --build
-```
-
-سرویس‌ها: `web` (Vite روی پورت ۳۰۰۰)، `api` (Express روی ۸۰۰۰) و `db` (PostgreSQL).
-درخواست‌های `/api` از طریق پروکسی Vite به سرویس API می‌رسند، بنابراین همه‌چیز روی یک دامنه اجرا می‌شود.
-
-## نکته دربارهٔ پیش‌نمایش سندباکس
-
-در حالت پیش‌نمایش (`BASE44_PREVIEW_MODE=1`) فایل `vite.config.ts` میزبان‌های پروکسی پیش‌نمایش را از متغیرهای محیطی اضافه می‌کند
-و حالت polling را برای watch روشن می‌کند. با این متغیر خاموش (اجرای معمولی و build تولیدی) هیچ‌کدام اعمال نمی‌شود.
+`npm run build` type-checks and produces the static `dist/` bundle; deploy it to any static host and
+run `server/` (or the same Express app) alongside it with `/api` proxied to it.

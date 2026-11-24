@@ -1,346 +1,336 @@
 /**
- * Entire site copy lives here.
- * Everything is editable from one place — replace the sample values (statistics,
- * testimonials, contact details, media) with the club's real data.
+ * Single source of truth for every word, link and list on the site.
+ * Update content here — components never hardcode copy.
  */
 
-export type NavItem = { label: string; href: string };
-
-export type Stat = {
-  label: string;
-  value?: number;
-  decimals?: number;
-  suffix?: string;
-  staticValue?: string;
-};
-
-export type Program = {
-  id: string;
-  index: string;
-  title: string;
-  tagline: string;
-  description: string;
-  highlights: string[];
-  meta: { label: string; value: string }[];
-  image: string;
-  icon: 'muscle' | 'flame' | 'barbell' | 'endurance' | 'spark';
-};
-
-export type Facility = { id: string; title: string; description: string; image: string };
-
-export type Testimonial = {
-  id: string;
-  name: string;
-  role: string;
-  quote: string;
-  rating: number;
-  avatar: string;
-};
+export type IconName =
+  | 'code'
+  | 'layers'
+  | 'spark'
+  | 'cap'
+  | 'pen'
+  | 'monitor'
+  | 'wordpress'
+  | 'palette'
+  | 'ai'
+  | 'chart'
+  | 'search'
+  | 'brand'
+  | 'bolt'
+  | 'gauge'
+  | 'mail'
+  | 'arrow'
+  | 'download'
+  | 'close'
+  | 'check';
 
 export const site = {
-  brand: {
-    persian: 'ایران زمین',
-    latin: 'IRAN ZAMIN',
-    full: 'باشگاه بدنسازی ایران زمین',
-    coach: 'محسن اصانلو',
-  },
-
-  nav: [
-    { label: 'صفحه اصلی', href: '#home' },
-    { label: 'برنامه‌های تمرینی', href: '#programs' },
-    { label: 'عضویت', href: '#join' },
-    { label: 'مربی', href: '#coach' },
-    { label: 'امکانات باشگاه', href: '#facilities' },
-    { label: 'داستان ما', href: '#story' },
-    { label: 'تماس با ما', href: '#contact' },
-  ] as NavItem[],
-
-  hero: {
-    eyebrow: 'بیشتر از یک باشگاه',
-    titleLead: 'قدرتت',
-    titleRest: 'رو بساز',
-    titleGhost: 'نسخهٔ قوی‌تر خودت باش',
-    lead: 'تمرین حرفه‌ای، مربیگری تخصصی، نتیجه واقعی.',
-    points: ['تمرین نخبگان', 'مربیگری واقعی', 'نتیجه ماندگار'],
-    primaryCta: { label: 'مشاهده برنامه‌های تمرینی', href: '#programs' },
-    secondaryCta: { label: 'آشنایی با مربی', href: '#coach' },
-    panels: [
-      { title: 'تمرین شخصی', caption: 'برنامه اختصاصی با مربی', href: '#join' },
-      { title: 'امکانات حرفه‌ای', caption: 'تجهیزات کامل باشگاهی', href: '#facilities' },
-    ],
-    videoLabel: 'تماشای داستان ما',
-    videoDuration: '۰۱:۲۴',
-    statsNote: 'اعداد نمونه — آمادهٔ جایگزینی با آمار واقعی باشگاه',
-  },
-
-  /**
-   * Placeholder figures: replace with the club's real numbers before launch.
-   * They are labelled as sample data in the interface so nothing is presented
-   * as a verified fact.
-   */
-  stats: [
-    { label: 'ورزشکار', value: 500, suffix: '+' },
-    { label: 'امتیاز رضایت اعضا', value: 4.9, decimals: 1, suffix: ' از ۵' },
-    { label: 'ساعات فعالیت باشگاه', staticValue: '۲۴/۷' },
-    { label: 'تجربهٔ مربیگری', value: 12, suffix: ' سال' },
-  ] as Stat[],
-
-  coach: {
-    label: 'مربی',
-    title: 'با هدایت یک مربی حرفه‌ای، قوی‌تر شو',
-    name: 'محسن اصانلو',
-    latin: 'MOHSEN OSANLOO',
-    role: 'مربی بدنسازی و آمادگی جسمانی',
-    bio: 'مربیگری برای من یعنی شناخت بدن هر ورزشکار و ساختن برنامه‌ای که با زندگی او هماهنگ باشد. از جلسهٔ اول، مسیر تمرین بر اساس وضعیت بدنی، سابقهٔ ورزشی و هدف شما طراحی می‌شود و در طول مسیر بازبینی و اصلاح می‌شود.',
-    principles: ['برنامه‌ریزی اختصاصی', 'اصلاح تکنیک', 'پیگیری مستمر'],
-    cta: 'دربارهٔ مربی بیشتر بدانید',
-    modal: {
-      intro:
-        'در ایران زمین، تمرین فقط تکرار حرکت نیست؛ قرار است بدن شما با برنامه، با کنترل و با ریکاوری درست پیش برود. هر جلسه با هدف مشخص شروع می‌شود و پیشرفت شما ثبت و بازبینی می‌شود.',
-      approach: [
-        'ارزیابی اولیه: وضعیت بدنی، سابقهٔ تمرین و محدودیت‌ها پیش از شروع برنامه بررسی می‌شود.',
-        'برنامهٔ اختصاصی: حجم، شدت و تعداد جلسات بر اساس هدف و زمان در دسترس شما تنظیم می‌شود.',
-        'اصلاح تکنیک: اجرای صحیح حرکات، پایهٔ پیشرفت بدون آسیب است و در هر جلسه بازبینی می‌شود.',
-        'پیگیری و بازبینی: برنامه در فواصل منظم بر اساس پیشرفت واقعی شما به‌روزرسانی می‌شود.',
-      ],
-      note: 'سوابق، مدارک و گواهی‌نامه‌های رسمی مربی پس از تأیید، در همین بخش درج می‌شود.',
-    },
-  },
-
-  programs: [
-    {
-      id: 'muscle',
-      index: '۰۱',
-      title: 'بدنسازی و عضله‌سازی',
-      tagline: 'هایپرتروفی کنترل‌شده',
-      description: 'برنامهٔ حجم و ترکیب بدنی با تمرکز بر هایپرتروفی، کیفیت حرکت و ریکاوری هدفمند.',
-      highlights: [
-        'تقسیم‌بندی تمرین بر اساس سطح و سابقه',
-        'پیشرفت تدریجی بار و حجم تمرین',
-        'تغذیهٔ هماهنگ با دورهٔ عضله‌سازی',
-      ],
-      meta: [
-        { label: 'جلسات', value: '۳ تا ۵ در هفته' },
-        { label: 'سطح', value: 'مقدماتی تا پیشرفته' },
-      ],
-      image: '/images/program-muscle.webp',
-      icon: 'muscle',
-    },
-    {
-      id: 'fatloss',
-      index: '۰۲',
-      title: 'چربی‌سوزی و تناسب اندام',
-      tagline: 'ترکیب مقاومتی و هوازی',
-      description: 'ترکیب تمرین مقاومتی و هوازی با کالری و ریکاوری هدفمند برای کاهش چربی پایدار.',
-      highlights: [
-        'تمرین تناوبی با شدت کنترل‌شده',
-        'حفظ عضله در دورهٔ کاهش وزن',
-        'پایش هفتگی شاخص‌های پیشرفت',
-      ],
-      meta: [
-        { label: 'جلسات', value: '۳ تا ۴ در هفته' },
-        { label: 'سطح', value: 'همهٔ سطوح' },
-      ],
-      image: '/images/program-fatloss.webp',
-      icon: 'flame',
-    },
-    {
-      id: 'strength',
-      index: '۰۳',
-      title: 'تمرین قدرتی',
-      tagline: 'پایه‌های قدرت واقعی',
-      description: 'دورهٔ قدرت پایه شامل اسکات، ددلیفت و پرس با پروگرسیون هفتگی و اصلاح تکنیک.',
-      highlights: [
-        'پروگرسیون هفتگی بار',
-        'اصلاح تکنیک حرکات پایه',
-        'مدیریت ریسک آسیب',
-      ],
-      meta: [
-        { label: 'جلسات', value: '۳ در هفته' },
-        { label: 'سطح', value: 'متوسط تا پیشرفته' },
-      ],
-      image: '/images/program-strength.webp',
-      icon: 'barbell',
-    },
-    {
-      id: 'endurance',
-      index: '۰۴',
-      title: 'تمرینات استقامتی',
-      tagline: 'ظرفیت قلبی–عروقی',
-      description: 'افزایش ظرفیت قلبی–عروقی و استقامت عضلانی با تمرین‌های تناوبی و پیوسته.',
-      highlights: [
-        'تمرین تناوبی و پیوسته',
-        'بهبود آمادگی هوازی',
-        'برنامهٔ مکمل برای ورزش‌های دیگر',
-      ],
-      meta: [
-        { label: 'جلسات', value: '۲ تا ۵ در هفته' },
-        { label: 'سطح', value: 'همهٔ سطوح' },
-      ],
-      image: '/images/program-endurance.webp',
-      icon: 'endurance',
-    },
-    {
-      id: 'custom',
-      index: '۰۵',
-      title: 'برنامهٔ تمرینی اختصاصی',
-      tagline: 'کاملاً شخصی‌سازی‌شده',
-      description: 'برنامهٔ کاملاً اختصاصی بر پایهٔ ارزیابی اولیه، هدف و زمان در دسترس شما.',
-      highlights: [
-        'ارزیابی اولیهٔ اختصاصی',
-        'زمان‌بندی متناسب با زندگی روزمره',
-        'بازبینی منظم برنامه',
-      ],
-      meta: [
-        { label: 'جلسات', value: 'توافقی' },
-        { label: 'سطح', value: 'اختصاصی' },
-      ],
-      image: '/images/program-custom.webp',
-      icon: 'spark',
-    },
-  ] as Program[],
-
-  facilities: [
-    {
-      id: 'equipment',
-      title: 'تجهیزات بدنسازی',
-      description: 'دستگاه‌های حرفه‌ای برای تمرین تمام گروه‌های عضلانی.',
-      image: '/images/facility-equipment.webp',
-    },
-    {
-      id: 'floor',
-      title: 'فضای تمرین حرفه‌ای',
-      description: 'سالن وسیع با نورپردازی سینمایی و کف مناسب تمرین.',
-      image: '/images/facility-floor.webp',
-    },
-    {
-      id: 'freeweights',
-      title: 'دمبل و وزنه‌های آزاد',
-      description: 'ست کامل دمبل، هالتر و صفحه‌های وزنه در محدودهٔ گسترده.',
-      image: '/images/facility-weights.webp',
-    },
-    {
-      id: 'cardio',
-      title: 'دستگاه‌های هوازی',
-      description: 'تردمیل، دوچرخه و دستگاه قایقرانی برای تمرین هوازی.',
-      image: '/images/facility-strength.webp',
-    },
-    {
-      id: 'strength',
-      title: 'فضای تمرین قدرتی',
-      description: 'محدودهٔ مجزا برای حرکات پایه و تمرین‌های قدرتی.',
-      image: '/images/facility-machines.webp',
-    },
-    {
-      id: 'ropes',
-      title: 'منطقهٔ تمرین عملکردی',
-      description: 'فضای طناب بتل‌روپ و تمرین‌های عملکردی.',
-      image: '/images/facility-ropes.webp',
-    },
-  ] as Facility[],
-
-  video: {
-    label: 'ویدیو',
-    title: 'داستان قدرت در ایران زمین',
-    subtitle: 'نگاهی به فضای باشگاه و مسیر تمرین اعضای ایران زمین.',
-    duration: '۰۱:۲۴',
-    poster: '/images/facility-floor.webp',
-    /**
-     * Put the real club film here (for example '/video/iran-zamin.mp4').
-     * While it is empty, an editable sample reel of the club photos plays in
-     * the modal and is labelled as a preview.
-     */
-    src: '',
-    reel: [
-      '/images/facility-floor.webp',
-      '/images/hero-rope.webp',
-      '/images/program-strength.webp',
-      '/images/facility-weights.webp',
-    ],
-  },
-
-  /** Sample testimonials — flagged as test content in the interface. */
-  testimonials: [
-    {
-      id: 't1',
-      name: 'سارا محمدی',
-      role: 'عضو باشگاه',
-      quote:
-        'متنی که اینجا می‌بینید نمونه است. پس از دریافت نظرات واقعی اعضا، همین کارت‌ها با نظر و نام آن‌ها تکمیل می‌شود.',
-      rating: 5,
-      avatar: '/images/avatar-3.webp',
-    },
-    {
-      id: 't2',
-      name: 'امیر کاظمی',
-      role: 'عضو باشگاه',
-      quote:
-        'متنی که اینجا می‌بینید نمونه است. پس از دریافت نظرات واقعی اعضا، همین کارت‌ها با نظر و نام آن‌ها تکمیل می‌شود.',
-      rating: 5,
-      avatar: '/images/avatar-1.webp',
-    },
-    {
-      id: 't3',
-      name: 'نگار توکلی',
-      role: 'عضو باشگاه',
-      quote:
-        'متنی که اینجا می‌بینید نمونه است. پس از دریافت نظرات واقعی اعضا، همین کارت‌ها با نظر و نام آن‌ها تکمیل می‌شود.',
-      rating: 5,
-      avatar: '/images/avatar-2.webp',
-    },
-  ] as Testimonial[],
-
-  join: {
-    label: 'عضویت',
-    title: 'شروع تغییر از همین امروز',
-    lead: 'درخواست مشاورهٔ رایگان بفرستید؛ برای انتخاب برنامهٔ مناسب و تعیین جلسهٔ ارزیابی با شما تماس می‌گیریم.',
-    steps: [
-      { title: 'مشاورهٔ اولیه', text: 'گفت‌وگو دربارهٔ هدف، سابقه و زمان در دسترس شما.' },
-      { title: 'ارزیابی و انتخاب برنامه', text: 'انتخاب برنامهٔ تمرینی متناسب با وضعیت و هدف شما.' },
-      { title: 'شروع تمرین', text: 'آغاز تمرین با پیگیری مربی و بازبینی منظم برنامه.' },
-    ],
-    goals: [
-      'عضله‌سازی و افزایش حجم',
-      'کاهش وزن و چربی‌سوزی',
-      'افزایش قدرت',
-      'آمادگی جسمانی عمومی',
-      'هنوز مطمئن نیستم — مشاوره می‌خواهم',
-    ],
-    formNote: 'اطلاعات شما فقط برای تماس و هماهنگی مشاوره استفاده می‌شود و در اختیار شخص دیگری قرار نمی‌گیرد.',
-  },
-
-  contact: {
-    label: 'تماس',
-    /**
-     * Replace with the club's confirmed details. Values are intentionally
-     * neutral until the administration confirms them.
-     */
-    phone: '۰۲۱ ۰۰۰۰ ۰۰۰۰',
-    phoneHref: 'tel:+98210000000',
-    email: 'info@iranzamin.fit',
-    address: 'تهران — نشانی دقیق باشگاه پس از تأیید مدیریت درج می‌شود',
-    hours: 'شنبه تا پنجشنبه، ۷:۰۰ تا ۲۳:۰۰',
-    socials: [
-      { label: 'اینستاگرام', href: '#', icon: 'instagram' as const },
-      { label: 'تلگرام', href: '#', icon: 'telegram' as const },
-      { label: 'واتساپ', href: '#', icon: 'whatsapp' as const },
-    ],
-    note: 'شمارهٔ تماس، نشانی و شبکه‌های اجتماعی پس از تأیید باشگاه تکمیل می‌شود.',
-  },
-
-  footer: {
-    tagline: 'باشگاه بدنسازی ایران زمین — تمرین حرفه‌ای، مربیگری تخصصی، نتیجهٔ واقعی.',
-    quickLinks: [
-      { label: 'برنامه‌های تمرینی', href: '#programs' },
-      { label: 'امکانات باشگاه', href: '#facilities' },
-      { label: 'مربی', href: '#coach' },
-      { label: 'عضویت', href: '#join' },
-    ],
-    copyright: '© ۱۴۰۴ باشگاه بدنسازی ایران زمین — تمام حقوق محفوظ است.',
-  },
+  name: 'Mahdi Babaei',
+  title: 'Software Engineer',
+  tagline: 'Digital Experiences & Technology',
+  url: 'https://mahdibabaei.com',
+  description:
+    'Mahdi Babaei — Software Engineer crafting premium digital experiences across web development, UI/UX design and AI-powered solutions.',
+  locale: 'en',
 };
 
-/** Converts latin digits to Persian digits for display. */
-export function toFa(input: string | number): string {
-  return String(input).replace(/[0-9]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[Number(d)]);
-}
+export const nav = [
+  { id: 'home', label: 'Home', index: '01' },
+  { id: 'about', label: 'About', index: '02' },
+  { id: 'skills', label: 'Skills', index: '03' },
+  { id: 'projects', label: 'Projects', index: '04' },
+  { id: 'services', label: 'Services', index: '05' },
+  { id: 'contact', label: 'Contact', index: '06' },
+];
+
+export const hero = {
+  badge: 'Available for New Projects',
+  greeting: "Hi, I'm",
+  name: 'Mahdi Babaei',
+  roles: ['Software Engineer', 'UI/UX Designer', 'AI-Powered Builder'],
+  intro:
+    'I build fast, accessible digital products — blending clean engineering, modern interface design and AI-assisted workflows into experiences that feel effortless.',
+  primaryCta: { label: 'View My Work', href: '#projects' },
+  secondaryCta: { label: 'Download CV', href: '/cv/mahdi-babaei-cv.pdf' },
+  /**
+   * Optional hero photograph. Add your own file to public/images and point
+   * this at it (e.g. '/images/portrait.webp'). When empty, the art-directed
+   * holographic bust renders instead.
+   */
+  portrait: '',
+  portraitAlt: 'Portrait of Mahdi Babaei with cyan rim lighting',
+};
+
+export const overview = {
+  eyebrow: '01',
+  label: 'Professional Overview',
+  title: 'A focused stack for building complete digital products.',
+  cards: [
+    {
+      icon: 'code' as IconName,
+      kicker: 'Core Expertise',
+      title: 'Web Development',
+      text: 'Semantic, responsive front-ends and dependable back-ends — engineered for speed, clarity and long-term maintenance.',
+    },
+    {
+      icon: 'layers' as IconName,
+      kicker: 'Creative Skills',
+      title: 'UI/UX & Graphic Design',
+      text: 'Interface systems, brand identities and visual assets that make products feel considered from the first pixel.',
+    },
+    {
+      icon: 'spark' as IconName,
+      kicker: 'Technology',
+      title: 'AI-Powered Solutions',
+      text: 'Practical AI workflows that compress repetitive production work and unlock smarter, faster digital delivery.',
+    },
+    {
+      icon: 'cap' as IconName,
+      kicker: 'Education',
+      title: "Bachelor's Degree in Software Engineering",
+      text: 'A formal engineering foundation in software architecture, databases, algorithms and system design.',
+    },
+  ],
+};
+
+export const about = {
+  eyebrow: '02',
+  label: 'About Me',
+  title: 'Technology, creativity and business — in one workflow.',
+  paragraphs: [
+    "I'm Mahdi Babaei, a software engineering graduate with a strong passion for web technologies, modern design, artificial intelligence, and building useful digital products.",
+    'My focus is combining technology, creativity, and business understanding to create professional digital experiences.',
+  ],
+  meta: [
+    { label: 'Discipline', value: 'Software Engineering' },
+    { label: 'Focus', value: 'Web · Design · AI' },
+    { label: 'Location', value: 'Tehran, Iran' },
+    { label: 'Status', value: 'Open to projects' },
+  ],
+  principles: [
+    'Design decisions backed by engineering constraints.',
+    'Performance treated as a feature, not a cleanup task.',
+    'Interfaces that stay readable, accessible and calm.',
+  ],
+};
+
+export const skills = {
+  eyebrow: '03',
+  label: 'Skills & Technologies',
+  title: 'Four disciplines, one production workflow.',
+  categories: [
+    {
+      icon: 'code' as IconName,
+      title: 'Web Development',
+      code: 'WEB',
+      items: ['WordPress', 'HTML', 'CSS', 'JavaScript', 'Responsive Web Design'],
+    },
+    {
+      icon: 'palette' as IconName,
+      title: 'Design & Creativity',
+      code: 'DSN',
+      items: [
+        'Adobe Photoshop',
+        'Adobe Illustrator',
+        'UI/UX Design',
+        'Logo Design',
+        'Brand Identity',
+        'Brochure & Catalog Design',
+      ],
+    },
+    {
+      icon: 'ai' as IconName,
+      title: 'Artificial Intelligence',
+      code: 'A.I',
+      items: [
+        'AI-Assisted Development',
+        'Prompt Engineering',
+        'AI Image Generation',
+        'AI-Powered Workflows',
+        'Claude AI',
+        'Google Gemini',
+      ],
+    },
+    {
+      icon: 'chart' as IconName,
+      title: 'Productivity & Business',
+      code: 'BIZ',
+      items: [
+        'Microsoft Word',
+        'Microsoft Excel',
+        'Microsoft Office',
+        'Digital Marketing',
+        'Sales & Customer Relations',
+      ],
+    },
+  ],
+};
+
+export type Project = {
+  slug: string;
+  index: string;
+  title: string;
+  category: string;
+  description: string;
+  year: string;
+  role: string;
+  stack: string[];
+  highlights: string[];
+  accent: string;
+  visual: 'gym' | 'app' | 'estate' | 'ai';
+};
+
+export const projects: Project[] = [
+  {
+    slug: 'iran-zamin-gym',
+    index: '01',
+    title: 'Iran Zamin Gym',
+    category: 'Fitness Website',
+    description:
+      'A modern professional website concept for a fitness center, featuring premium visual design and a scalable structure for future membership and online payment integration.',
+    year: '2025',
+    role: 'Design & Development',
+    stack: ['React', 'TypeScript', 'CSS', 'Responsive UI'],
+    highlights: [
+      'Cinematic dark visual language built around a single accent color.',
+      'Scalable component structure prepared for memberships and payments.',
+      'Mobile-first layouts with motion that respects reduced-motion users.',
+    ],
+    accent: '#39e75f',
+    visual: 'gym',
+  },
+  {
+    slug: 'pelan-app',
+    index: '02',
+    title: 'Pelan App',
+    category: 'Productivity Application',
+    description:
+      'A modern productivity and reminder application designed to help users organize daily tasks, build habits, and manage personal goals.',
+    year: '2025',
+    role: 'Product Design & Front-end',
+    stack: ['UI Systems', 'JavaScript', 'Local-first data'],
+    highlights: [
+      'Task, habit and goal flows kept in one calm, glanceable dashboard.',
+      'Interaction patterns tuned for daily, low-friction use.',
+      'Design system documented for future feature expansion.',
+    ],
+    accent: '#00f0e5',
+    visual: 'app',
+  },
+  {
+    slug: 'real-estate-experience',
+    index: '03',
+    title: 'Real Estate Digital Experience',
+    category: 'Real Estate Website',
+    description:
+      'A premium real estate website concept focused on modern property presentation, cinematic visuals, and sophisticated user experience.',
+    year: '2025',
+    role: 'Art Direction & Development',
+    stack: ['Web Design', 'Motion', 'Responsive Layout'],
+    highlights: [
+      'Property storytelling built around large-format imagery.',
+      'Filtering and browsing patterns that stay fast on mobile.',
+      'Refined typography and spacing for a high-trust brand feel.',
+    ],
+    accent: '#8fa9ff',
+    visual: 'estate',
+  },
+  {
+    slug: 'ai-digital-solutions',
+    index: '04',
+    title: 'AI-Powered Digital Solutions',
+    category: 'Artificial Intelligence',
+    description:
+      'Exploring AI-powered tools and intelligent workflows to improve digital production, development, and business processes.',
+    year: '2026',
+    role: 'Research & Prototyping',
+    stack: ['Prompt Engineering', 'AI Workflows', 'Automation'],
+    highlights: [
+      'Reusable prompt patterns for design and development tasks.',
+      'Automated asset and copy pipelines that shorten delivery cycles.',
+      'Human review kept in the loop for quality and accuracy.',
+    ],
+    accent: '#b18cff',
+    visual: 'ai',
+  },
+];
+
+export const services = {
+  eyebrow: '05',
+  label: 'What I Do',
+  title: 'Services engineered around real business outcomes.',
+  items: [
+    {
+      icon: 'monitor' as IconName,
+      title: 'Professional Website Design',
+      text: 'Complete website concepts with a clear visual system, strong hierarchy and a premium first impression.',
+    },
+    {
+      icon: 'wordpress' as IconName,
+      title: 'WordPress Development',
+      text: 'Flexible, editor-friendly WordPress builds that clients can maintain without touching code.',
+    },
+    {
+      icon: 'bolt' as IconName,
+      title: 'Business Website Development',
+      text: 'Fast, structured corporate sites built to convert visitors into enquiries.',
+    },
+    {
+      icon: 'pen' as IconName,
+      title: 'UI/UX Design',
+      text: 'Wireframes, flows and polished interfaces designed around how people actually use a product.',
+    },
+    {
+      icon: 'brand' as IconName,
+      title: 'Logo & Brand Identity Design',
+      text: 'Distinctive marks and identity systems that stay consistent across every touchpoint.',
+    },
+    {
+      icon: 'palette' as IconName,
+      title: 'Graphic Design',
+      text: 'Brochures, catalogs and campaign assets that keep brand language coherent.',
+    },
+    {
+      icon: 'ai' as IconName,
+      title: 'AI-Powered Digital Solutions',
+      text: 'Practical AI integration for content, imagery and production workflows.',
+    },
+    {
+      icon: 'gauge' as IconName,
+      title: 'Website Optimization',
+      text: 'Performance, accessibility and SEO audits with fixes that measurably improve the experience.',
+    },
+  ],
+};
+
+export const contact = {
+  eyebrow: '06',
+  label: 'Contact',
+  title: "Let's Build Something Amazing Together",
+  description:
+    "Have an idea or a project in mind? Let's turn your vision into a professional digital experience.",
+  cta: 'Get In Touch',
+  email: 'hello@mahdibabaei.com',
+  location: 'Tehran, Iran',
+  availability: 'Available for freelance & collaboration',
+  responseTime: 'Replies within 1–2 business days',
+  form: {
+    title: 'Start a conversation',
+    subtitle: 'Tell me a little about the project. Every message is read.',
+    submit: 'Send Message',
+    fields: {
+      name: { label: 'Your name', placeholder: 'Jane Cooper' },
+      email: { label: 'Email address', placeholder: 'jane@company.com' },
+      message: { label: 'Project details', placeholder: 'What are you building, and what do you need?' },
+    },
+    successTitle: 'Message received',
+    successText: "Thanks for reaching out — I'll get back to you within 1–2 business days.",
+  },
+  /** Add real profiles here and they render automatically. */
+  socials: [] as { label: string; href: string }[],
+};
+
+export const footer = {
+  note: 'Designed & engineered by Mahdi Babaei.',
+  status: 'Available for new projects',
+};

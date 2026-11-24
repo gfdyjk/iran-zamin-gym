@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react';
+import type { CSSProperties, ElementType, ReactNode } from 'react';
 import { useInView } from '../../hooks/useInView';
 
 type Props = {
@@ -6,17 +6,22 @@ type Props = {
   /** Stagger delay in milliseconds. */
   delay?: number;
   className?: string;
-  as?: 'div' | 'li' | 'span';
+  as?: ElementType;
+  variant?: 'up' | 'scale' | 'left' | 'right';
+  id?: string;
 };
 
-/** Fades and lifts its children into view once, on scroll. */
-export function Reveal({ children, delay = 0, className, as = 'div' }: Props) {
+/** Reveals its children once, when they scroll into view. */
+export function Reveal({ children, delay = 0, className, as, variant = 'up', id }: Props) {
   const { ref, inView } = useInView<HTMLDivElement>();
-  const Tag = as as 'div';
-  const classes = ['reveal', inView ? 'is-visible' : '', className].filter(Boolean).join(' ');
+  const Tag = (as ?? 'div') as ElementType;
+  const variantClass = variant === 'up' ? '' : `reveal--${variant}`;
+  const classes = ['reveal', variantClass, inView ? 'is-visible' : '', className]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <Tag ref={ref} data-reveal className={classes} style={{ '--reveal-delay': `${delay}ms` } as CSSProperties}>
+    <Tag ref={ref} className={classes} id={id} style={{ '--reveal-delay': `${delay}ms` } as CSSProperties}>
       {children}
     </Tag>
   );

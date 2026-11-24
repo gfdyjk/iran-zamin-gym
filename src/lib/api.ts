@@ -1,21 +1,17 @@
-export type LeadPayload = {
+export type ContactPayload = {
   name: string;
-  phone: string;
-  goal: string;
-  note?: string;
+  email: string;
+  message: string;
 };
 
 export type SubmitResult = { ok: true } | { ok: false; message: string };
 
-const fallbackMessage = 'ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید.';
+const fallbackMessage = 'Something went wrong while sending. Please try again.';
 
-/**
- * Sends a consultation request to the club's API, which stores it in the
- * club database (see server/). The form is a real submission, not a mock.
- */
-export async function submitLead(payload: LeadPayload): Promise<SubmitResult> {
+/** Posts to the site's own API, which validates and stores the message. */
+export async function submitContact(payload: ContactPayload): Promise<SubmitResult> {
   try {
-    const response = await fetch('/api/leads', {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

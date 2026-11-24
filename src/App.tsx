@@ -1,30 +1,28 @@
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/sections/Hero';
-import { Ticker } from './components/sections/Ticker';
-import { Coach } from './components/sections/Coach';
-import { Programs } from './components/sections/Programs';
-import { Facilities } from './components/sections/Facilities';
-import { Join } from './components/sections/Join';
-import { VideoStory } from './components/sections/VideoStory';
-import { Testimonials } from './components/sections/Testimonials';
+import { Overview } from './components/sections/Overview';
+import { About } from './components/sections/About';
+import { Skills } from './components/sections/Skills';
+import { Projects } from './components/sections/Projects';
+import { Services } from './components/sections/Services';
+import { Contact } from './components/sections/Contact';
 
 export default function App() {
   return (
     <>
       <a className="skip-link" href="#main">
-        رفتن به محتوای اصلی
+        Skip to content
       </a>
       <Header />
       <main id="main" tabIndex={-1}>
         <Hero />
-        <Ticker />
-        <Coach />
-        <Programs />
-        <Facilities />
-        <Join />
-        <VideoStory />
-        <Testimonials />
+        <Overview />
+        <About />
+        <Skills />
+        <Projects />
+        <Services />
+        <Contact />
       </main>
       <Footer />
     </>

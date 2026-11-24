@@ -1,0 +1,113 @@
+.overview {
+  padding-top: clamp(56px, 7vw, 96px);
+}
+
+.overview__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+.overview__cell {
+  display: flex;
+}
+
+.overview__cell > .reveal {
+  display: flex;
+  width: 100%;
+}
+
+.overview__card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-height: 244px;
+  padding: clamp(20px, 2vw, 26px);
+  border-radius: var(--r-lg);
+}
+
+.overview__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.overview__icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  border: 1px solid var(--cyan-line);
+  background: radial-gradient(120% 120% at 30% 10%, rgba(0, 240, 229, 0.18), rgba(6, 28, 34, 0.6));
+  color: var(--cyan);
+  transition: transform 420ms var(--ease-out), box-shadow 420ms var(--ease), border-color 300ms;
+}
+
+.overview__card:hover .overview__icon {
+  transform: translate3d(0, -2px, 0) rotate(-6deg) scale(1.05);
+  border-color: var(--cyan-line-strong);
+  box-shadow: 0 0 26px -6px rgba(0, 240, 229, 0.55);
+}
+
+.overview__index {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--dim);
+}
+
+.overview__kicker {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.overview__title {
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.overview__text {
+  font-size: 0.87rem;
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+.overview__edge {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 400ms var(--ease), transform 500ms var(--ease-out);
+}
+
+.overview__card:hover .overview__edge {
+  opacity: 0.7;
+  transform: scaleX(1);
+}
+
+@media (max-width: 1080px) {
+  .overview__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .overview__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .overview__card {
+    min-height: 0;
+  }
+}
